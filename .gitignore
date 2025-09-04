@@ -1,0 +1,32 @@
+Java build output
+
+bin/
+out/
+build/
+target/
+Packaged Java archives
+
+*.jar
+*.war
+*.ear
+Log files created by the application
+
+*.log
+CryptoWipe_log.txt
+IDE-specific files & folders
+IntelliJ
+
+.idea/
+*.iml
+*.iws
+Eclipse
+
+.classpath
+.project
+.settings/
+VS Code
+
+.vscode/
+macOS specific
+
+.DS_Store
