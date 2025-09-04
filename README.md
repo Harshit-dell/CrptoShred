@@ -1,128 +1,118 @@
-# CryptoWipe - Secure Shredder
+# CrptoShred - Secure Shredder
 
 ## 1. Project Overview
 
-CryptoWipe is a powerful command-line utility for securely and permanently deleting files and directories. It overwrites data with multiple passes of meaningless patterns before deletion, making data recovery practically impossible.
+**CrptoShred** is a powerful command-line utility for securely and permanently deleting files and directories. It overwrites data with multiple passes of meaningless patterns before deletion, making data recovery practically impossible.
 
-**Key Features:**
+### Key Features
 
-- **Safety Confirmation**: Mandatory interactive prompt warns you before any destructive action, preventing accidental data loss.
-- **Detailed Logging**: All operations, configurations, and errors are recorded in a timestamped log file (`CryptoWipe_log.txt`).
-- **Recursive Directory Wiping**: Securely delete entire folder structures.
-- **Selectable Shredding Standards**: Choose from different methods for a balance of speed and security.
-- **Verification**: Confirm a successful wipe by checking the file's final SHA-256 hash.
-- **Progress Bar**: Get real-time feedback on the wipe process in your terminal.
+- **Safety Confirmation:** Mandatory interactive prompt before any destructive action, preventing accidental data loss.
+- **Detailed Logging:** All operations, configurations, and errors are recorded in `CrptoShred_log.txt`.
+- **Recursive Directory Wiping:** Securely delete entire folder structures.
+- **Selectable Shredding Standards:** Choose from different methods for a balance of speed and security.
+- **Verification:** Confirm a successful wipe by checking the file's final SHA-256 hash.
+- **Progress Bar:** Real-time feedback on the wipe process in your terminal.
 
 ---
 
-## 2. How to Package for Distribution
+## 2. How to Build the Application
 
-To package CryptoWipe as a standalone tool, compile the source files and create an executable `.jar` file.
+To compile CrptoShred into a standalone tool:
 
-### **Steps:**
-
-1. **Open a Terminal/Command Prompt**  
-   Navigate to your project root (containing the `src` folder).
-
-2. **Create a Build Directory**
-   ```bash
-   mkdir bin
-   ```
-
-3. **Compile the Source Code**
-   ```bash
-   javac -d bin src/*.java
-   ```
-
-4. **Create the Executable JAR File**
-   ```bash
-   jar cfe CryptoWipe.jar Main -C bin .
-   ```
-   The `CryptoWipe.jar` file will appear in your project root.
+1. **Make the build script executable:**
+    ```bash
+    chmod +x build.sh
+    ```
+2. **Run the build script:**
+    ```bash
+    ./build.sh
+    ```
+After building, `CrptoShred.jar` will appear in your project's root directory.
 
 ---
 
 ## 3. How to Install and Run as a Command
 
-### For Linux & macOS
+After creating `CrptoShred.jar`, you can set up a script to run it globally.
 
-1. **Move the JAR file**
-   ```bash
-   mkdir -p ~/apps/cryptowipe
-   mv CryptoWipe.jar ~/apps/cryptowipe/
-   ```
+### Steps:
 
-2. **Create the runner script**
-   ```bash
-   touch cryptowipe
-   ```
-   Edit `cryptowipe` and add:
-   ```bash
-   #!/bin/bash
-   java -jar /home/user/apps/cryptowipe/CryptoWipe.jar "$@"
-   ```
-   *(Replace `/home/user/apps/cryptowipe/` with your actual path.)*
-
-3. **Make the script executable**
-   ```bash
-   chmod +x cryptowipe
-   ```
-
-4. **Move the script to your PATH**
-   ```bash
-   sudo mv cryptowipe /usr/local/bin/
-   ```
-   Now you can run CryptoWipe from anywhere:
-   ```bash
-   cryptowipe <arguments>
-   ```
-
----
-
-### For Windows
-
-1. **Move the JAR file:**  
-   Place `CryptoWipe.jar` in a permanent location, e.g., `C:\Program Files\CryptoWipe\`.
-
-2. **Create the runner script:**  
-   Create a file named `cryptowipe.bat` with:
-   ```bat
-   @echo off
-   java -jar "C:\Program Files\CryptoWipe\CryptoWipe.jar" %*
-   ```
-   *(Replace the path with your actual location.)*
-
-3. **Add script's location to PATH:**
-    - Search for "Edit the system environment variables".
-    - Click "Environment Variables...".
-    - Under "System variables", edit `Path` and add the folder containing `cryptowipe.bat`.
-    - Click OK to save.
-
-Now you can run CryptoWipe from any `cmd` or PowerShell:
-```shell
-cryptowipe <arguments>
-```
+1. **Move the JAR file to a permanent location:**
+    ```bash
+    mkdir -p ~/apps/crptoshred
+    mv CrptoShred.jar ~/apps/crptoshred/
+    ```
+2. **Create the runner script:**
+    - Create a file named `crptoshred`:
+        ```bash
+        nano crptoshred
+        ```
+    - Add the following lines (replace `/home/user/apps/crptoshred/` with the actual path to your JAR):
+        ```bash
+        #!/bin/bash
+        java -jar /home/user/apps/crptoshred/CrptoShred.jar "$@"
+        ```
+    - Make the script executable:
+        ```bash
+        chmod +x crptoshred
+        ```
+3. **Move the script to your PATH:**
+    ```bash
+    sudo mv crptoshred /usr/local/bin/
+    ```
+Now you can run the tool from anywhere by typing `crptoshred`.
 
 ---
 
 ## 4. Command-Line Usage
 
-**Syntax**
-```shell
-cryptowipe <path> [passes] [--method <name>] [delete] [verify]
+Once installed, use the command as follows:
+
+### Syntax
+
+```bash
+crptoshred <path> [passes] [--method <name>] [delete] [verify]
 ```
 
-**Example**
-```shell
-cryptowipe "C:\Users\MyUser\Desktop\secret-file.txt" --method DOD_5220_22_M delete format this
+### Example
+
+```bash
+crptoshred ./my-secret-folder --method DOD_5220_22_M delete format this
 ```
 
 ---
 
-## 5. Notes
+## 5. Shredding Methods
 
-- Ensure you have Java installed (`java -version`).
-- The tool is destructive—use with caution!
-- For best security, use a reputable shredding method and verify results.
+- **DOD_5220_22_M:** U.S. Department of Defense standard (multiple overwrite passes).
+- **Gutmann:** 35-pass overwrite for maximum security.
+- **Simple:** Quick single or few-pass overwrite for speed.
+
+---
+
+## 6. Logging
+
+All activities are logged in `CrptoShred_log.txt` in the application folder. Check this file for details about operations, errors, and confirmations.
+
+---
+
+## 7. Safety & Verification
+
+- **Confirmation Prompt:** Prevents accidental deletion by requiring user input before proceeding.
+- **Verification:** SHA-256 hash check ensures the wipe is complete.
+
+---
+
+## 8. Troubleshooting
+
+- **Log File:** Review `CrptoShred_log.txt` for errors or issues.
+- **Permissions:** Ensure you have proper permissions for the files or directories you wish to shred.
+- **Java:** Requires Java to be installed on your system.
+
+---
+
+## 9. License & Contribution
+
+Open source under [your license]. Contributions welcome! Please open issues or pull requests for enhancements and bug fixes.
 
 ---
