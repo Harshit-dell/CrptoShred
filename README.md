@@ -111,8 +111,3 @@ All activities are logged in `CrptoShred_log.txt` in the application folder. Che
 
 ---
 
-## 9. License & Contribution
-
-Open source under [your license]. Contributions welcome! Please open issues or pull requests for enhancements and bug fixes.
-
----
